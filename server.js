@@ -4,11 +4,12 @@ import getURL from './getURL';
 import dotenv from 'dotenv/config';
 import viewEngine from './viewEngine';
 import initWebroute from './route/webRoute';
+import bodyParser from 'body-parser';
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 dotenv.config
 const port = process.env.PORT
-// app.use(bodyParser.urlencoded({ extended: false}))
-// app.use(bodyParser.json())
 initWebroute(app)
 viewEngine(app)
 

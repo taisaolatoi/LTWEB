@@ -37,9 +37,9 @@
                         <%=data.rows[i].address%>
                     </td>
                     <td style="display: flex; list-style: none; gap: 10px;">
-                        <li><a href="/detailUser"><i class="fas fa-eye"></i> Xem</a></li>
+                        <li><a href="/detailUser/<%=data.rows[i].id%>"><i class="fas fa-eye"></i> Xem</a></li>
                         <li><a href="/edit-user/<%=data.rows[i].id%>"><i class="fas fa-edit"></i> Sửa</a></li>
-                        <li><a href="/delUser"><i class="fas fa-trash-alt"></i> Xóa</a></li>
+                        <li><a href="/delete-user/<%=data.rows[i].id%>"><i class="fas fa-trash-alt"></i> Xóa</a></li>
                     </td>
                 </tr>
                 <%}%>
