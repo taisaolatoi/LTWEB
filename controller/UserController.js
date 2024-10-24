@@ -19,7 +19,7 @@ const editUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     console.log(req.body)
-    let {fullname, address,userId } = req.body
+    let { fullname, address, userId } = req.body
     await userModel.updateUser(fullname, address, userId)
     res.redirect("/listUser")
 }
@@ -30,4 +30,26 @@ const deleteUser = async (req, res) => {
     return res.render('home', { data: { title: 'Del User', page: 'listUser', rows: delUser } })
 }
 
-export default { getAllUser, getOneUser, editUser, updateUser, deleteUser }
+const createUser = async (req, res) => {
+    let { username, pass, fullname, email, sex } = req.body
+    const role = 0;
+    const insert = await userModel.createUser(username, pass, fullname, email, sex, role)
+    if (insert.affectedRows > 0) {
+        res.status(201).json({ message: 'Tạo tài khoản thành công!' }); 
+    } else {
+        res.status(500).json({ message: 'Lỗi khi tạo tài khoản!' }); 
+    }
+}
+
+const loginUser = async (req, res) => {
+    let { username, pass } = req.body
+    const user = await userModel.checkUser(username, pass)
+    if (user.length > 0) {
+        req.session.user = user;
+        res.redirect("/")
+    } else {
+        res.status(401).json({ message: 'Tên đăng nhập hoặc mật khẩu không đúng!' });
+    }
+}
+
+export default { getAllUser, getOneUser, editUser, updateUser, deleteUser, loginUser, createUser }

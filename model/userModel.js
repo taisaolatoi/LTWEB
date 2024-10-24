@@ -22,4 +22,14 @@ const delUser = async (user) => {
     return rows
 }
 
-export default { getAllUser, updateUser, getOneUser, delUser }
+const checkUser = async (username, pass) => {
+    const [rows, fields] = await pool.execute('select * from users where username=? and password =?', [username, pass])
+    return rows
+}
+
+const createUser = async (username, pass, fullname, email, sex, role) => {
+    const [rows, fields] = await pool.execute('insert into users(username,password,fullname,email,sex,role) values (?, ?, ?, ?, ?, ?)', [username, pass, fullname, email, sex, role])
+    return rows
+}
+
+export default { getAllUser, updateUser, getOneUser, delUser, checkUser, createUser }

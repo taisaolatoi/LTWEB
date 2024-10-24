@@ -5,11 +5,32 @@ import dotenv from 'dotenv/config';
 import viewEngine from './viewEngine';
 import initWebroute from './route/webRoute';
 import bodyParser from 'body-parser';
+import session from 'express-session';
+import RedisStore from "connect-redis"
+import { createClient } from "redis"
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 dotenv.config
 const port = process.env.PORT
+let redisClient = createClient()
+redisClient.connect().catch(console.error)
+
+let redisStore = new RedisStore({
+    client: redisClient,
+    prefix: "myapp:",
+})
+
+
+app.use(session({
+    store: redisStore,
+    resave: false,
+    saveUninitialized: false,
+    secret: "keyboard cat",
+
+}))
+
 initWebroute(app)
 viewEngine(app)
 
