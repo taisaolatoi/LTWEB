@@ -34,9 +34,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/createUser">Tạo tài khoản</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Đăng nhập</a>
-                    </li>
+                    <% if(user) { %>
+                        <li class="nav-item">
+                            <a style="color: red; font-weight: bold;" class="nav-link" href="#">
+                                <%= user[0].username %>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-weight: bold;" class="nav-link" href="/logout">
+                                Đăng xuất
+                            </a>
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Đăng nhập</a>
+                            </li>
+                            <% } %>
                 </ul>
             </div>
         </nav>

@@ -4,10 +4,12 @@ import getURL from './getURL';
 import dotenv from 'dotenv/config';
 import viewEngine from './viewEngine';
 import initWebroute from './route/webRoute';
+import initAPIWebroute from './route/apiRoute';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import RedisStore from "connect-redis"
 import { createClient } from "redis"
+import auth from './middleware/auth';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +32,8 @@ app.use(session({
     secret: "keyboard cat",
 
 }))
-
+// app.use(auth)
+initAPIWebroute(app)
 initWebroute(app)
 viewEngine(app)
 

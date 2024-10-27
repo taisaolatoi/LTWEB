@@ -32,4 +32,9 @@ const createUser = async (username, pass, fullname, email, sex, role) => {
     return rows
 }
 
-export default { getAllUser, updateUser, getOneUser, delUser, checkUser, createUser }
+const checkExistingUser = async (username) => {
+    const [rows, fields] = await pool.execute('SELECT * FROM users WHERE username = ?', [username]);
+    return rows.length > 0;
+};
+
+export default { getAllUser, updateUser, getOneUser, delUser, checkUser, createUser, checkExistingUser }
