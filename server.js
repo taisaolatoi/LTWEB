@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import RedisStore from "connect-redis"
 import { createClient } from "redis"
+import cors from 'cors'
 import auth from './middleware/auth';
 
 const app = express();
@@ -18,6 +19,7 @@ dotenv.config
 const port = process.env.PORT
 let redisClient = createClient()
 redisClient.connect().catch(console.error)
+
 
 let redisStore = new RedisStore({
     client: redisClient,
@@ -32,6 +34,11 @@ app.use(session({
     secret: "keyboard cat",
 
 }))
+const corsOption = {
+    origin: ['http://localhost:3000'],
+    optionSuccessStatus: 200
+}
+app.use(cors(corsOption))
 // app.use(auth)
 initAPIWebroute(app)
 initWebroute(app)

@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
             // res.send('Không có quyền')
         }
     } else {
-        if (req.path === '/' || req.path === '/login' || req.path === '/login-user' || req.path === '/listUser' || req.path === '/createUser' || req.path === '/createUserA' || req.path === '/api/APIcreateuser') { // Cho phép truy cập vào trang đăng nhập
+        if (req.path === '/' || req.path === '/login' || req.path === '/login-user' || req.path === '/listUser' || req.path === '/createUser' || req.path === '/createUserA' || req.path === '/api/APIcreateuser' || req.path === '/api/APIcategory') { // Cho phép truy cập vào trang đăng nhập
             next();
         } else {
             // res.redirect("/login"); // Chuyển hướng đến trang đăng nhập
